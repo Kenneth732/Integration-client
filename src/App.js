@@ -83,34 +83,43 @@ function App() {
 
   return (
     <div>
-      <h1>Animals</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={newAnimal.name}
-          onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
-        />
-        <label>Image URL:</label>
-        <input
-          type="text"
-          value={newAnimal.image}
-          onChange={(e) => setNewAnimal({ ...newAnimal, image: e.target.value })}
-        />
-        <label>Type:</label>
-        <input
-          type="text"
-          value={newAnimal.type}
-          onChange={(e) => setNewAnimal({ ...newAnimal, type: e.target.value })}
-        />
-        <label>Weight:</label>
-        <input
-          type="number"
-          value={newAnimal.weight}
-          onChange={(e) => setNewAnimal({ ...newAnimal, weight: e.target.value })}
-        />
-        <button type="submit">{editingIndex === -1 ? 'Add Animal' : 'Save Animal'}</button>
-      </form>
+<div className="form-container">
+  <h2>Add/Edit Animal</h2>
+  <form onSubmit={handleSubmit}>
+    <label>Name:</label>
+    <input
+      className="form-input"
+      type="text"
+      value={newAnimal.name}
+      onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
+    />
+    <label>Image URL:</label>
+    <input
+      className="form-input"
+      type="text"
+      value={newAnimal.image}
+      onChange={(e) => setNewAnimal({ ...newAnimal, image: e.target.value })}
+    />
+    <label>Type:</label>
+    <input
+      className="form-input"
+      type="text"
+      value={newAnimal.type}
+      onChange={(e) => setNewAnimal({ ...newAnimal, type: e.target.value })}
+    />
+    <label>Weight:</label>
+    <input
+      className="form-input"
+      type="number"
+      value={newAnimal.weight}
+      onChange={(e) => setNewAnimal({ ...newAnimal, weight: e.target.value })}
+    />
+    <button className="form-button" type="submit">
+      {editingIndex === -1 ? 'Add Animal' : 'Save Animal'}
+    </button>
+  </form>
+</div>
+
       <div className="app-container">
         <ul className="animal-list">
           {animals.map((animal, index) => (
