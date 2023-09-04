@@ -81,44 +81,60 @@ function App() {
     setNewAnimal(editedAnimal);
   };
 
+  // Function to handle the deletion of an animal
+  const handleDelete = (index) => {
+    // Send a DELETE request to delete the animal
+    fetch(`/api/animals/${index}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((deletedAnimal) => {
+        // Update the animals state to remove the deleted animal
+        const updatedAnimals = [...animals];
+        updatedAnimals.splice(index, 1);
+        setAnimals(updatedAnimals);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
   return (
     <div>
-<div className="form-container">
-  <h2>Add/Edit Animal</h2>
-  <form onSubmit={handleSubmit}>
-    <label>Name:</label>
-    <input
-      className="form-input"
-      type="text"
-      value={newAnimal.name}
-      onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
-    />
-    <label>Image URL:</label>
-    <input
-      className="form-input"
-      type="text"
-      value={newAnimal.image}
-      onChange={(e) => setNewAnimal({ ...newAnimal, image: e.target.value })}
-    />
-    <label>Type:</label>
-    <input
-      className="form-input"
-      type="text"
-      value={newAnimal.type}
-      onChange={(e) => setNewAnimal({ ...newAnimal, type: e.target.value })}
-    />
-    <label>Weight:</label>
-    <input
-      className="form-input"
-      type="number"
-      value={newAnimal.weight}
-      onChange={(e) => setNewAnimal({ ...newAnimal, weight: e.target.value })}
-    />
-    <button className="form-button" type="submit">
-      {editingIndex === -1 ? 'Add Animal' : 'Save Animal'}
-    </button>
-  </form>
-</div>
+      <div className="form-container">
+        <h2>Add/Edit Animal</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            className="form-input"
+            type="text"
+            value={newAnimal.name}
+            onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
+          />
+          <label>Image URL:</label>
+          <input
+            className="form-input"
+            type="text"
+            value={newAnimal.image}
+            onChange={(e) => setNewAnimal({ ...newAnimal, image: e.target.value })}
+          />
+          <label>Type:</label>
+          <input
+            className="form-input"
+            type="text"
+            value={newAnimal.type}
+            onChange={(e) => setNewAnimal({ ...newAnimal, type: e.target.value })}
+          />
+          <label>Weight:</label>
+          <input
+            className="form-input"
+            type="number"
+            value={newAnimal.weight}
+            onChange={(e) => setNewAnimal({ ...newAnimal, weight: e.target.value })}
+          />
+          <button className="form-button" type="submit">
+            {editingIndex === -1 ? 'Add Animal' : 'Save Animal'}
+          </button>
+        </form>
+      </div>
 
       <div className="app-container">
         <ul className="animal-list">
@@ -129,12 +145,16 @@ function App() {
                 <p className="animal-name">Name: {animal.name}</p>
                 <p className="animal-type">Type: {animal.type}</p>
                 <p className="animal-weight">Weight: {animal.weight} lbs</p>
-                <button onClick={() => handleEdit(index)}>Edit</button>
+                <div className='buttons'>
+                  <button onClick={() => handleEdit(index)}>Edit</button>
+                  <button onClick={() => handleDelete(index)}>Delete</button>
+                </div>
               </div>
             </li>
           ))}
         </ul>
       </div>
+
     </div>
   );
 }
